@@ -33,17 +33,17 @@ export const putDb = async (content) => {
 //Create a new request to update the store with a put operation
 
 // TODO: Add logic for a method that gets all the content from the database
-export const getDb = async () => console.error('getDb not implemented');
+export const getDb = async () => {
 
-export const getOneDb = async (id) => {
+// export const getO  neDb = async (id) => {
   console.log('GET from the database');
   const todosDb = await openDB('todos', 1);
   const tx = todosDb.transaction('todos', 'readonly');
   const store = tx.objectStore('todos');
-  const request = store.get(id);
-  const result = await request;
+  const request = store.getAll();
+  const result = await req;
   console.log('result.value', result);
-  return result;
+  return result?.value;
 };
 
 initdb();
