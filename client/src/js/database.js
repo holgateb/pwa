@@ -13,10 +13,18 @@ const initdb = async () =>
   });
 
 // TODO: Add logic to a method that accepts some content and adds it to the database
-export const putDb = async (content) => {
+export const postDb = async (content) => {
+  console.log('Post to the ase');
+  const todosDb = await openDB('todos', 1);
+  const tx = todosDb.transaction('todos', 'readwrite');
+  const store = tx.objectStore('todos');
+  const request = store.add({ todo: content });
+  const result = await request;
+  console.log('🚀 - data saved to the database', result);
+};
 
 //Open database
-// export const putDb = async (id, content) => {
+export const putDb = async (id, content) => {
   console.log('PUT to the database');
   const todosDb = await openDB('todos', 1);
   const tx = todosDb.transaction('todo', 'readwrite');
@@ -26,24 +34,27 @@ export const putDb = async (content) => {
   console.log('🚀 - data saved to the database', result);
 };
 
-//Open a new transaction to a store to interact with our DB
-
-//Select the store from the transaction
-
-//Create a new request to update the store with a put operation
-
 // TODO: Add logic for a method that gets all the content from the database
 export const getDb = async () => {
+  console.log('GET all from the database');
+  const todosDb = await openDB('todos', 1);
+  const tx = todosDb.transaction('todos', 'readonly');
+  const store = tx.objectStore('todos');
+  const request = store.getAll();
+  const result = await request;
+  console.log('result.value', result);
+  return result;
+};
 
-// export const getO  neDb = async (id) => {
+export const getOneDb = async (id) => {
   console.log('GET from the database');
   const todosDb = await openDB('todos', 1);
   const tx = todosDb.transaction('todos', 'readonly');
   const store = tx.objectStore('todos');
   const request = store.getAll();
-  const result = await req;
+  const result = await request;
   console.log('result.value', result);
-  return result?.value;
+  return result;
 };
 
 initdb();
