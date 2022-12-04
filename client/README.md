@@ -16,7 +16,7 @@ This is a web-based text editor.
 
 ## Installation
 
-Clone it down and run start.
+Clone it down and NPM run start.
 
 ## Usage
 
